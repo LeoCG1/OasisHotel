@@ -86,7 +86,7 @@ class AuthController extends Controller
      * Redirecciona a google.
      */
     public function redirectToGoogle(){
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->stateless()->redirect();
     }
     /**Leonardo Costa
      * Función de autentificación con google.
@@ -94,7 +94,7 @@ class AuthController extends Controller
      * Si no existe, crea al usuario y finalmente loguea.
      */
     public function handleGoogleCallback(Request $request){
-        $user = Socialite::driver('google')->user();
+        $user = Socialite::driver('google')->stateless()->user();
     
         $userExiste = User::where('google_id', $user->id)->first();
         if($userExiste){
