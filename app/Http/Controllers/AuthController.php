@@ -69,8 +69,8 @@ class AuthController extends Controller
         $user = Auth::user();
         $request->session()->put('key', $user->id );
         $request->session()->put('usuario', $user );
-        $token = $user->createToken('AuthToken')->accessToken;
-        return redirect()->route('reservation.create', ['user' => $user, 'access_token' => $token])->with('success', 'Usuario logeado correctamente.');
+        //$token = $user->createToken('AuthToken')->accessToken;
+        return redirect()->route('reservation.create', $user)->with('success', 'Usuario logeado correctamente.');
 
     }
     /**Leonardo Costa
@@ -86,7 +86,7 @@ class AuthController extends Controller
      * Redirecciona a google.
      */
     public function redirectToGoogle(){
-        return Socialite::driver('google')->stateless()->redirect();
+        return Socialite::driver('google')->redirect();
     }
     /**Leonardo Costa
      * Función de autentificación con google.
@@ -94,7 +94,7 @@ class AuthController extends Controller
      * Si no existe, crea al usuario y finalmente loguea.
      */
     public function handleGoogleCallback(Request $request){
-        $user = Socialite::driver('google')->stateless()->user();
+        $user = Socialite::driver('google')->user();
     
         $userExiste = User::where('google_id', $user->id)->first();
         if($userExiste){
