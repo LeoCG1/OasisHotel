@@ -61,7 +61,6 @@ function scrollFunction() {
     sinScrollPic.classList.remove('sinScroll');
   }
 }
-
 /**Leonardo Costa
  * Función que envía al usuario al principio de la pantalla, cambiando el nav a sinScroll.
  */

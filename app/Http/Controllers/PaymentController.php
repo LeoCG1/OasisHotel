@@ -55,7 +55,6 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //$client = Clients::all()->where('dni', $payment->client_id)->first();
         $reservation = Reservation::all()->where('id', $payment->reservation_id)->first();
         $client = Clients::all()->where('dni', $reservation->client_id)->first();
         return view('/paginas/factura/factura')->with(compact('payment'))->with(compact('client'))->with(compact('reservation'));
