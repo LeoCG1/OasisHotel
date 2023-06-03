@@ -69,8 +69,8 @@ class AuthController extends Controller
         $user = Auth::user();
         $request->session()->put('key', $user->id );
         $request->session()->put('usuario', $user );
-        //$token = $user->createToken('AuthToken')->accessToken;
-        return redirect()->route('reservation.create', $user)->with('success', 'Usuario logeado correctamente.');
+        $token = $user->createToken('AuthToken')->accessToken;
+        return redirect()->route('reservation.create', ['user' => $user, 'access_token' => $token])->with('success', 'Usuario logeado correctamente.');
 
     }
     /**Leonardo Costa
