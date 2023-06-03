@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hotel Oasis - @yield('titulo')</title>
   <link rel="stylesheet" href="/css/app-9e600732.css"> 
-
   <style>
   @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 </style>
