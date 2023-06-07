@@ -12,11 +12,11 @@ foreach($staff->schedule as $horario){
 @endphp
 @php
 foreach($staff->room as $hab){
-    $calendar->add_event($hab->descripcion . ' Nº '. $hab->num_habitacion . ' P '.$hab->piso_id, $hab->pivot->fecha_staff, 1, 'blue');
     if($hab->pivot->hora){
         $calendar->add_event($hab->descripcion . ' Nº '. $hab->num_habitacion . ' P '.$hab->piso_id, $hab->pivot->fecha_staff, 1, 'red');
+    }else{
+        $calendar->add_event($hab->descripcion . ' Nº '. $hab->num_habitacion . ' P '.$hab->piso_id, $hab->pivot->fecha_staff, 1, 'blue');
     }
-
 }
 @endphp
 <div class="container">
@@ -269,6 +269,7 @@ foreach($staff->room as $hab){
                             <tr>
                                 <td>{{ $horario->pivot->fecha}}</td>
                                 <td>{{ $horario->franja_horaria}}</td>
+                                @if(session('usuario')->admin)
                                 <td>
                                     <form action="{{ route('horarioUnassign', $staff) }}" method="post" style="display: inline">
                                         @csrf
@@ -278,6 +279,7 @@ foreach($staff->room as $hab){
                                         <button type="submit" class="btn btn-danger btn-sm">Desasignar</button>
                                     </form>
                                 </td>
+                                @endif
                                 <td>
                                     <a class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#horarioModal-{{ $horario->id }}">Solicitar Cambio</a>
                                 </td>
@@ -314,6 +316,7 @@ foreach($staff->room as $hab){
                             @else 
                             <td></td>
                             @endif
+                            @if(session('usuario')->admin)
                             <td>
                                 <form action="{{ route('habUnassign', $staff) }}" method="post" style="display: inline">
                                     @csrf
@@ -322,6 +325,7 @@ foreach($staff->room as $hab){
                                     <button type="submit" class="btn btn-danger btn-sm">Desasignar</button>
                                 </form>
                             </td>
+                            @endif
                         </tr>
                         @empty
                         <p>No tiene ningúna habitación asignada.</p>
